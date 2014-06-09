@@ -24,6 +24,7 @@ def main():
 
     filename = argv[1]
     my_file = open(filename)
+    my_file.close()
 
     restaurant_dict = create_dict(my_file)
     
