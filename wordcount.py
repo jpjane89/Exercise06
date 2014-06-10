@@ -9,17 +9,21 @@ def read_file():
     text = text.replace("\n"," ")
     words = text.split(" ") 
 
-    new_words = []
+    return words
+
+def clean_words(words):
+
+    clean_words = []
 
     for word in words:
 
-        new_word = word.strip('"')
-        new_word = new_word.strip("!:;,.#&/'()*+-?_'\t'")
-        new_word = new_word.strip('"')
+        clean_word = word.strip('"')
+        clean_word = clean_word.strip("!:;,.#&/'()*+-?_'\t'")
+        clean_word = clean_word.strip('"')
 
-        new_words.append(new_word)
+        clean_words.append(clean_word)
 
-    return new_words
+    return clean_words
 
 def fill_dict(words):
 
@@ -34,14 +38,27 @@ def fill_dict(words):
 
     return word_dict
 
+def sort_dict(word_dict):
+
+    dict_as_tuples = word_dict.items()
+
+    sorted_alpha = sorted(dict_as_tuples, key=lambda word : word[0])
+
+    sorted_tuples = sorted(sorted_alpha, key=lambda word : word[1], reverse=True)
+
+    for word, count in sorted_tuples:
+        print word, count
+
 def main():
     
-    words = read_file()
+    words = clean_words(read_file())
 
     word_dict = fill_dict(words)
 
-    for word in word_dict:
-        print word, word_dict.get(word)
+    sort_dict(word_dict)
+
+    #for word in word_dict:
+        #print word, word_dict.get(word)
 
 if __name__ == "__main__":
     main()
